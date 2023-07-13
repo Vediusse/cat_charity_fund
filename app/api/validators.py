@@ -35,8 +35,8 @@ async def charity_possible_to_change(
         raise HTTPException(status_code=404, detail="Проект не найдена!")
 
     if (
-        update_value.full_amount is not None
-        and charity.invested_amount > update_value.full_amount
+        update_value.full_amount is not None and
+        charity.invested_amount > update_value.full_amount
     ):
         raise HTTPException(
             status_code=422,

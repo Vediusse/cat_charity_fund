@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.api.endpoints import *
+from app.api.endpoints import donation_router, charity_router, user_router
 
 main_router = APIRouter()
 main_router.include_router(

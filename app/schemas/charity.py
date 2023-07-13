@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import Field, BaseModel, validator
+from pydantic import Field, BaseModel
 
 from .base import BaseProjectSchema
 
