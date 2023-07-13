@@ -1,4 +1,4 @@
-from sqlalchemy import Column
+from sqlalchemy import Column, Text, String
 
 from app.models.base import BaseProjectModel
 
