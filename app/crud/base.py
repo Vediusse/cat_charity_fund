@@ -1,7 +1,7 @@
 from typing import Optional, TypeVar, Type, Generic
 
 from fastapi.encoders import jsonable_encoder
-from sqlalchemy import select, delete
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import DeclarativeMeta
 
