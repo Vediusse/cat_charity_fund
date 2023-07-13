@@ -37,9 +37,7 @@ class CharityCBV:
         response_model_exclude_none=True,
     )
     async def create(self, charity: CharityCreate) -> CharityDB:
-        await validators.charity_name_duplicate(
-            charity.name, session=self.session
-        )
+        await validators.charity_name_duplicate(charity.name, session=self.session)
         charity = await charity_crud.create(charity, session=self.session)
         await investing(session=self.session)
 
@@ -51,21 +49,15 @@ class CharityCBV:
     )
     async def delete(self, project_id: int) -> CharityDB:
         await validators.charity_exists(project_id, session=self.session)
-        await validators.charity_possible_to_delete(
-            project_id, session=self.session
-        )
-        charity = await charity_crud.delete(
-            model_id=project_id, session=self.session
-        )
+        await validators.charity_possible_to_delete(project_id, session=self.session)
+        charity = await charity_crud.delete(model_id=project_id, session=self.session)
         return charity
 
     @router.patch(
         "/{project_id}",
         dependencies=[Depends(current_superuser)],
     )
-    async def update(
-        self, project_id: int, charity_update: CharityUpdate
-    ) -> CharityDB:
+    async def update(self, project_id: int, charity_update: CharityUpdate) -> CharityDB:
         await validators.charity_name_duplicate(
             charity_update.name, session=self.session
         )
@@ -76,8 +68,6 @@ class CharityCBV:
             db_obj=charity, obj_in=charity_update, session=self.session
         )
         if charity.invested_amount == charity.full_amount:
-            await charity_crud.close_project(
-                charity.id, session=self.session
-            )
+            await charity_crud.close_project(charity.id, session=self.session)
 
         return charity

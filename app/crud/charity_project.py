@@ -8,17 +8,13 @@ from app.models import CharityProject
 
 
 class CharityCRUD(CRUDBase[CharityProject]):
-    async def get_opened_projects(
-        self, session: AsyncSession
-    ) -> List[ModelType]:
+    async def get_opened_projects(self, session: AsyncSession) -> List[ModelType]:
         project = await session.execute(
             sq.select(self.model).where(self.model.fully_invested.is_(False))
         )
         return project.scalars().all()
 
-    async def close_project(
-        self, project_id: int, session: AsyncSession
-    ) -> ModelType:
+    async def close_project(self, project_id: int, session: AsyncSession) -> ModelType:
         project = await session.execute(
             sq.select(self.model).where(self.model.id == project_id)
         )

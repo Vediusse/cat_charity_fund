@@ -35,9 +35,7 @@ class CRUDBase(Generic[ModelType]):
         session: AsyncSession,
     ) -> ModelType:
         attr = getattr(self.model, attr_name)
-        db_obj = await session.execute(
-            select(self.model).where(attr == attr_value)
-        )
+        db_obj = await session.execute(select(self.model).where(attr == attr_value))
         return db_obj.scalars().first()
 
     async def create(

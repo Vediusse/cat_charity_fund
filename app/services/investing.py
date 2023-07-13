@@ -7,12 +7,8 @@ from app.models import CharityProject, Donation
 
 
 async def investing(session: AsyncSession):
-    donations: List[Donation] = await donation_crud.get_vacant_donations(
-        session
-    )
-    charities: List[CharityProject] = await charity_crud.get_opened_projects(
-        session
-    )
+    donations: List[Donation] = await donation_crud.get_vacant_donations(session)
+    charities: List[CharityProject] = await charity_crud.get_opened_projects(session)
     charities_iter = iter(charities)
 
     try:
@@ -28,12 +24,8 @@ async def investing(session: AsyncSession):
         charity.invested_amount += invested_amount
         donation.invested_amount += invested_amount
 
-        donation.fully_invested = (
-            donation.invested_amount == donation.full_amount
-        )
-        charity.fully_invested = (
-            charity.invested_amount == charity.full_amount
-        )
+        donation.fully_invested = donation.invested_amount == donation.full_amount
+        charity.fully_invested = charity.invested_amount == charity.full_amount
         if charity.fully_invested:
             charity.close_date = datetime.now()
 

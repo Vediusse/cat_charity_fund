@@ -7,9 +7,7 @@ from app.models import Donation, User
 
 
 class DonationCRUD(CRUDBase[Donation]):
-    async def get_vacant_donations(
-        self, session: AsyncSession
-    ) -> List[ModelType]:
+    async def get_vacant_donations(self, session: AsyncSession) -> List[ModelType]:
         donations = await session.execute(
             sq.select(self.model).where(self.model.fully_invested.is_(False))
         )
