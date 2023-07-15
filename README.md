@@ -30,7 +30,7 @@
 
 ## Инструкция по развёртыванию проекта
 
-* клонировать проект на компьютер `git clone https://github.com/foxygen-d/cat_charity_fund.git`
+* клонировать проект на компьютер `git clone git@github.com:Vediusse/cat_charity_fund.git`
 * создание виртуального окружения `python3 -m venv venv`
 * запуск виртуального окружения `. venv/bin/activate`
 * установить зависимости из файла requirements.txt `pip install -r requirements.txt`

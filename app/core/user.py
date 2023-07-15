@@ -21,7 +21,6 @@ from app.models.user import User
 from app.schemas.user import UserCreate
 
 
-
 async def get_user_db(session: AsyncSession = Depends(get_async_session)):
     yield SQLAlchemyUserDatabase(session, User)
 
@@ -30,7 +29,8 @@ bearer_transport = BearerTransport(tokenUrl="auth/jwt/login")
 
 
 def get_jwt_strategy() -> JWTStrategy:
-    return JWTStrategy(secret=settings.secret, lifetime_seconds=settings.lifetime_jwt)
+    return JWTStrategy(secret=settings.secret,
+                       lifetime_seconds=settings.lifetime_jwt)
 
 
 auth_backend = AuthenticationBackend(
@@ -42,9 +42,9 @@ auth_backend = AuthenticationBackend(
 
 class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
     async def validate_password(
-        self,
-        password: str,
-        user: Union[UserCreate, User],
+            self,
+            password: str,
+            user: Union[UserCreate, User],
     ) -> None:
         if len(password) < 3:
             raise InvalidPasswordException(
