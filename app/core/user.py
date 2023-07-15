@@ -21,6 +21,7 @@ from app.models.user import User
 from app.schemas.user import UserCreate
 
 
+
 async def get_user_db(session: AsyncSession = Depends(get_async_session)):
     yield SQLAlchemyUserDatabase(session, User)
 
@@ -29,7 +30,7 @@ bearer_transport = BearerTransport(tokenUrl="auth/jwt/login")
 
 
 def get_jwt_strategy() -> JWTStrategy:
-    return JWTStrategy(secret=settings.secret, lifetime_seconds=3600)
+    return JWTStrategy(secret=settings.secret, lifetime_seconds=settings.lifetime_jwt)
 
 
 auth_backend = AuthenticationBackend(
